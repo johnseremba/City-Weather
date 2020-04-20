@@ -7,13 +7,22 @@ import androidx.room.Update;
 
 import java.util.List;
 
-public interface BaseDao<T> {
+interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(List<T> objects);
+    void insertObjects(List<T> objects);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(T... objects);
 
     @Update
-    void update(List<T> objects);
+    void updateObjects(List<T> objects);
+
+    @Update
+    void update(T... objects);
 
     @Delete
-    void delete(List<T> objects);
+    void deleteObjects(List<T> objects);
+
+    @Delete
+    void delete(T... objects);
 }

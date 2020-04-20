@@ -3,6 +3,7 @@ package com.example.cityweather.data.api.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.cityweather.utils.WeatherUtils;
 import com.google.gson.annotations.SerializedName;
 
 public class Temperature implements Parcelable {
@@ -39,6 +40,10 @@ public class Temperature implements Parcelable {
 
     public void setTempInKelvin(Double tempInKelvin) {
         this.tempInKelvin = tempInKelvin;
+    }
+
+    public double temperatureInCelsius() {
+        return WeatherUtils.getTemperatureInCelsius(this.tempInKelvin);
     }
 
     @Override

@@ -12,9 +12,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OnlineDataSource {
+public class OnlineDataSource implements OnlineDataSourceContract {
     private static final Object LOCK = new Object();
-    private static OnlineDataSource instance;
+    private static OnlineDataSource onlineDataSource;
     private final WeatherService weatherService;
 
     public OnlineDataSource(WeatherService weatherService) {
@@ -22,14 +22,15 @@ public class OnlineDataSource {
     }
 
     public static OnlineDataSource getInstance(WeatherService weatherService) {
-        if (instance == null) {
+        if (onlineDataSource == null) {
             synchronized (LOCK) {
-                instance = new OnlineDataSource(weatherService);
+                onlineDataSource = new OnlineDataSource(weatherService);
             }
         }
-        return instance;
+        return onlineDataSource;
     }
 
+    @Override
     public void getWeatherData(double latitude, double longitude, RequestCallback<List<WeatherItem>> callback) {
         String apiKey = BuildConfig.OPEN_WEATHER_API_KEY;
         weatherService.getWeatherForecast(latitude, longitude, apiKey).enqueue(new Callback<ApiResponse>() {
@@ -48,11 +49,5 @@ public class OnlineDataSource {
                 callback.onError(t.getMessage());
             }
         });
-    }
-
-    public interface RequestCallback<T> {
-        void onSuccess(T result);
-
-        void onError(String errorMessage);
     }
 }

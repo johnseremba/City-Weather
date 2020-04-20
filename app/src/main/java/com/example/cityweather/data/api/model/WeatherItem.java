@@ -66,7 +66,7 @@ public class WeatherItem implements Parcelable {
         this.date = date;
     }
 
-    public Uri getMainIcon() {
+    public String getMainIcon() {
         return weatherList.size() > 0
                 ? weatherList.get(0).getIcon()
                 : null;

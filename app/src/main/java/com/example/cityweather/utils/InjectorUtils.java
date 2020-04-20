@@ -1,8 +1,12 @@
 package com.example.cityweather.utils;
 
+import android.content.Context;
+
 import com.example.cityweather.data.Repository;
 import com.example.cityweather.data.api.OnlineDataSource;
 import com.example.cityweather.data.api.WeatherService;
+import com.example.cityweather.data.local.AppDatabase;
+import com.example.cityweather.data.local.LocalDataSource;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,15 +16,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class InjectorUtils {
     public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
-    public Repository provideRepository() {
-        return Repository.getInstance();
+    public static Repository provideRepository(Context context) {
+        return Repository.getInstance(
+                provideLocalDataSource(context),
+                provideOnlineDataSource(),
+                provideAppExecutors());
     }
 
-    public WeatherService provideWeatherService(Retrofit retrofit) {
-        return retrofit.create(WeatherService.class);
-    }
-
-    public Retrofit provideRetrofit() {
+    public static Retrofit provideRetrofit() {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .create();
@@ -30,7 +33,24 @@ public class InjectorUtils {
                 .build();
     }
 
-    public OnlineDataSource provideOnlineDataSource(WeatherService weatherService) {
-        return OnlineDataSource.getInstance(weatherService);
+    public static WeatherService provideWeatherService() {
+        return provideRetrofit().create(WeatherService.class);
+    }
+
+    public static OnlineDataSource provideOnlineDataSource() {
+        return OnlineDataSource.getInstance(provideWeatherService());
+    }
+
+    public static AppExecutors provideAppExecutors() {
+        return AppExecutors.getInstance();
+    }
+
+    public static AppDatabase provideAppDatabase(Context context) {
+        return AppDatabase.getDatabase(context);
+    }
+
+    public static LocalDataSource provideLocalDataSource(Context context) {
+        AppDatabase database = provideAppDatabase(context);
+        return LocalDataSource.getInstance(database.cityDao(), database.forecastDao(), provideAppExecutors());
     }
 }

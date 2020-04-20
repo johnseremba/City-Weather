@@ -11,7 +11,7 @@ import com.example.cityweather.data.local.model.CityWithForecast;
 import java.util.List;
 
 @Dao
-public interface CityDao extends BaseDao {
+public interface CityDao extends BaseDao<City> {
     @Query("SELECT * FROM city ORDER BY date_added DESC")
     LiveData<List<City>> getCities();
 

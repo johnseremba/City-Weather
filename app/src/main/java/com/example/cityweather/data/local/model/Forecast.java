@@ -5,12 +5,20 @@ import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "forecast")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "forecast",
+        foreignKeys = @ForeignKey(
+                entity = City.class,
+                parentColumns = "city_id",
+                childColumns = "city_id",
+                onDelete = CASCADE))
 public class Forecast implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")

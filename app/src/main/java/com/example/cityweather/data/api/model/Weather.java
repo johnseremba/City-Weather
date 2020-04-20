@@ -1,6 +1,5 @@
 package com.example.cityweather.data.api.model;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -34,9 +33,8 @@ public class Weather implements Parcelable {
         this.icon = icon;
     }
 
-    public Uri getIcon() {
-        String iconUri = String.format("https://openweathermap.org/img/wn/%s@2x.png", this.icon);
-        return Uri.parse(iconUri);
+    public String getIcon() {
+        return String.format("https://openweathermap.org/img/wn/%s@2x.png", this.icon);
     }
 
     @Override
