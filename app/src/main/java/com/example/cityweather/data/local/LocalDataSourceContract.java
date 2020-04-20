@@ -25,4 +25,6 @@ public interface LocalDataSourceContract {
     void insertForecast(List<Forecast> forecastList);
 
     int getCityForecastCount(int cityId);
+
+    List<City> getCitiesList();
 }

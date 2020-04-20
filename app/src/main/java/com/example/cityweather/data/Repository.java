@@ -1,16 +1,22 @@
 package com.example.cityweather.data;
 
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+
 import com.example.cityweather.data.api.OnlineDataSourceContract;
 import com.example.cityweather.data.api.RequestCallback;
 import com.example.cityweather.data.api.model.WeatherItem;
 import com.example.cityweather.data.local.LocalDataSourceContract;
 import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.data.local.model.Forecast;
+import com.example.cityweather.data.workers.DatabaseSyncWorker;
 import com.example.cityweather.utils.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Repository {
     public static final Object LOCK = new Object();
@@ -36,6 +42,10 @@ public class Repository {
             }
         }
         return repository;
+    }
+
+    public LocalDataSourceContract getLocalDataSource() {
+        return localDataSource;
     }
 
     public void triggerForecastFetch(final City city) {
@@ -74,5 +84,18 @@ public class Repository {
             forecastList.add(new Forecast(cityId, temperature, date, icon));
         }
         return forecastList;
+    }
+
+    public PeriodicWorkRequest createWorkRequest() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(true)
+                .build();
+        // Schedule updates every 12 hours
+        // WorkManager.getInstance(context).enqueue(workRequest);
+        return new PeriodicWorkRequest.Builder(
+                DatabaseSyncWorker.class, 12, TimeUnit.HOURS)
+                .setConstraints(constraints)
+                .build();
     }
 }

@@ -30,4 +30,7 @@ public interface CityDao extends BaseDao<City> {
 
     @Query("SELECT COUNT(city_id) FROM city")
     int getCitiesCount();
+
+    @Query("SELECT * FROM city")
+    List<City> getCitiesList();
 }

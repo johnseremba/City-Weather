@@ -64,7 +64,7 @@ public class LocalDataSource implements LocalDataSourceContract {
 
     @Override
     public void deleteForecastByCityId(int cityId) {
-        executors.getDiskIO().execute(() -> forecastDao.deleteForecastById(cityId));
+        executors.getDiskIO().execute(() -> forecastDao.deleteForecastByCityId(cityId));
     }
 
     @Override
@@ -75,5 +75,10 @@ public class LocalDataSource implements LocalDataSourceContract {
     @Override
     public int getCityForecastCount(int cityId) {
         return forecastDao.getCityForecastCount(cityId);
+    }
+
+    @Override
+    public List<City> getCitiesList() {
+        return cityDao.getCitiesList();
     }
 }

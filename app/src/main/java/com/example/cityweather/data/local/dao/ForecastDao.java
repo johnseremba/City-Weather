@@ -12,7 +12,7 @@ public interface ForecastDao extends BaseDao<Forecast> {
     LiveData<List<Forecast>> getCityForecast(int cityId);
 
     @Query("DELETE FROM forecast WHERE city_id = :cityId")
-    void deleteForecastById(int cityId);
+    void deleteForecastByCityId(int cityId);
 
     @Query("SELECT COUNT(forecast_id) FROM forecast WHERE city_id = :cityId")
     int getCityForecastCount(int cityId);
