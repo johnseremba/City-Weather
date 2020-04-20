@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import com.example.cityweather.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MapFragment extends Fragment {
 
     public MapFragment() {
