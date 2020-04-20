@@ -1,0 +1,2 @@
+rootProject.name='City Weather'
+include ':app'
