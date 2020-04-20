@@ -11,8 +11,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView tvhe = (TextView) findViewById(R.id.text_hello_word);
-        String weatherAPIKey = BuildConfig.OPEN_WEATHER_API_KEY;
-        tvhe.setText(weatherAPIKey);
     }
 }
