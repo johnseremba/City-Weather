@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def keyStorePropertiesFile = rootProject.file('keystore.properties')
+def keyStoreProperties = new Properties()
+keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -10,17 +14,49 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file(keyStoreProperties['KEY_STORE_FILE'])
+            storePassword keyStoreProperties['KEY_STORE_PASSWORD']
+            keyAlias = keyStoreProperties['KEY_ALIAS']
+            keyPassword = keyStoreProperties['KEY_PASSWORD']
         }
     }
 
+    buildTypes {
+        debug {
+            def googleApiKey = keyStoreProperties['GOOGLE_MAPS_API_KEY']
+            def openWeatherKey = keyStoreProperties['OPEN_WEATHER_API_KEY']
+
+            buildConfigField 'String', 'GOOGLE_MAPS_API_KEY', googleApiKey
+            buildConfigField 'String', 'OPEN_WEATHER_API_KEY', openWeatherKey
+            resValue 'string', 'google_maps_api_key', googleApiKey
+        }
+        release {
+            applicationIdSuffix '.release'
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            def googleMapsReleaseApiKey = System.getenv('GOOGLE_MAPS_API_KEY') ?: null
+            def openWeatherReleaseApiKey = System.getenv('OPEN_WEATHER_API_KEY') ?: null
+
+            buildConfigField 'String', 'GOOGLE_MAPS_API_KEY', googleMapsReleaseApiKey
+            buildConfigField 'String', 'OPEN_WEATHER_API_KEY', openWeatherReleaseApiKey
+            resValue 'string', 'google_maps_api_key', googleMapsReleaseApiKey
+
+            signingConfig signingConfigs.release
+            versionNameSuffix = '1.0'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
