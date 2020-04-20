@@ -12,7 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
-keystore.properties
 # Built application files
 *.apk
 *.aar
