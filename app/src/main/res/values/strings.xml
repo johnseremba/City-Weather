@@ -20,4 +20,5 @@
     <string name="err_generic_msg">Oops, some error occurred!</string>
     <string name="temperature_string">%1d&#xb0;</string>
     <string name="title_weather_forecast">Weather Forecast</string>
+    <string name="desc_city_icon">City Icon</string>
 </resources>
