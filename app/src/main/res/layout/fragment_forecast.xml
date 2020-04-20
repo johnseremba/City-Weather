@@ -14,72 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/weather_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top"
-        tools:src="@drawable/ic_038_cloudy_3" />
-
-    <TextView
-        android:id="@+id/txt_city_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/primary_dark"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/weather_icon"
-        app:layout_constraintStart_toStartOf="@+id/weather_icon"
-        app:layout_constraintTop_toBottomOf="@+id/weather_icon"
-        tools:text="Kampala" />
-
-    <TextView
-        android:id="@+id/txt_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="@+id/txt_city_name"
-        app:layout_constraintStart_toStartOf="@+id/txt_city_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_city_name"
-        tools:text="Monday 8 July" />
-
-    <TextView
-        android:id="@+id/txt_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/primary_dark"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/txt_date"
-        app:layout_constraintStart_toStartOf="@+id/txt_date"
-        app:layout_constraintTop_toBottomOf="@+id/txt_date"
-        tools:text="24&#xb0;" />
-
-    <TextView
-        android:id="@+id/txt_more_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="8dp"
-        android:text="@string/txt_more_info"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/primary_dark"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/txt_temperature"
-        app:layout_constraintStart_toStartOf="@+id/txt_temperature"
-        app:layout_constraintTop_toBottomOf="@+id/txt_temperature" />
+    <include layout="@layout/partial_main_forecast" />
 
     <TextView
         android:id="@+id/txt_hourly_label"
