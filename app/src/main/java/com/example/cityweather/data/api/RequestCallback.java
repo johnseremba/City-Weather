@@ -1,7 +1,10 @@
 package com.example.cityweather.data.api;
 
-public interface RequestCallback<T> {
-    void onSuccess(T result);
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-    void onError(String errorMessage);
+public interface RequestCallback<T> {
+    void onSuccess(@Nullable T result);
+
+    void onError(@NonNull ResponseCode responseCode, @Nullable String errorMessage);
 }
