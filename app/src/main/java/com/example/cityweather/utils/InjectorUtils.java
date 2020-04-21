@@ -7,6 +7,7 @@ import com.example.cityweather.data.api.OnlineDataSource;
 import com.example.cityweather.data.api.WeatherService;
 import com.example.cityweather.data.local.AppDatabase;
 import com.example.cityweather.data.local.LocalDataSource;
+import com.example.cityweather.ui.map.MapFragmentViewModelFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InjectorUtils {
     public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
+    public static final String SHARED_PREFS_NAME = "com.example.cityweather.shared_prefs";
 
     public static Repository provideRepository(Context context) {
         return Repository.getInstance(
@@ -52,5 +54,9 @@ public class InjectorUtils {
     public static LocalDataSource provideLocalDataSource(Context context) {
         AppDatabase database = provideAppDatabase(context);
         return LocalDataSource.getInstance(database.cityDao(), database.forecastDao(), provideAppExecutors());
+    }
+
+    public static MapFragmentViewModelFactory provideMapFragmentViewModelFactory(Context context) {
+        return new MapFragmentViewModelFactory(provideRepository(context));
     }
 }

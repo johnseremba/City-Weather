@@ -30,7 +30,6 @@ android {
         debug {
             def googleApiKey = keyStoreProperties['GOOGLE_MAPS_API_KEY']
             def openWeatherKey = keyStoreProperties['OPEN_WEATHER_API_KEY']
-
             buildConfigField 'String', 'GOOGLE_MAPS_API_KEY', googleApiKey
             buildConfigField 'String', 'OPEN_WEATHER_API_KEY', openWeatherKey
             resValue 'string', 'google_maps_api_key', googleApiKey
@@ -47,7 +46,6 @@ android {
             buildConfigField 'String', 'GOOGLE_MAPS_API_KEY', googleMapsReleaseApiKey
             buildConfigField 'String', 'OPEN_WEATHER_API_KEY', openWeatherReleaseApiKey
             resValue 'string', 'google_maps_api_key', googleMapsReleaseApiKey
-
             signingConfig signingConfigs.release
             versionNameSuffix = '1.0'
         }
@@ -68,8 +66,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
     implementation "androidx.room:room-runtime:2.2.5"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "androidx.room:room-compiler:2.2.5"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'

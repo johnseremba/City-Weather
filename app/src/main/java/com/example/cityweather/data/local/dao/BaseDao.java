@@ -12,17 +12,17 @@ interface BaseDao<T> {
     void insertObjects(List<T> objects);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(T... objects);
+    void insert(T[] objects);
 
     @Update
     void updateObjects(List<T> objects);
 
     @Update
-    void update(T... objects);
+    void update(T[] objects);
 
     @Delete
     void deleteObjects(List<T> objects);
 
     @Delete
-    void delete(T... objects);
+    void delete(T[] objects);
 }

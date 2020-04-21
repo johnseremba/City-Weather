@@ -59,7 +59,7 @@ public class LocalDataSource implements LocalDataSourceContract {
 
     @Override
     public void updateCity(City city) {
-        executors.getDiskIO().execute(() -> cityDao.update(city));
+        executors.getDiskIO().execute(() -> cityDao.update(new City[]{city}));
     }
 
     @Override

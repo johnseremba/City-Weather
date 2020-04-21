@@ -36,18 +36,6 @@
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_start_service"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/fab_focus_map"
-        app:layout_constraintEnd_toEndOf="@+id/fab_focus_map"
-        app:layout_constraintStart_toStartOf="@+id/fab_focus_map"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_focus_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

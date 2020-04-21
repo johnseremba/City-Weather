@@ -22,4 +22,5 @@
     <string name="title_weather_forecast">Weather Forecast</string>
     <string name="desc_city_icon">City Icon</string>
     <string name="desc_weather_icon">Weather Icon</string>
+    <string name="err_failed_to_get_location">Failed to get current location!</string>
 </resources>

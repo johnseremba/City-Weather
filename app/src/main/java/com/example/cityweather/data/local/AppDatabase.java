@@ -12,7 +12,7 @@ import com.example.cityweather.data.local.dao.ForecastDao;
 import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.data.local.model.Forecast;
 
-@Database(entities = {City.class, Forecast.class}, version = 1)
+@Database(entities = {City.class, Forecast.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final Object LOCK = new Object();
