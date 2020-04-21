@@ -1,6 +1,7 @@
 package com.example.cityweather.ui;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -15,6 +16,7 @@ import com.example.cityweather.R;
 import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.ui.city.CityFragment;
 import com.example.cityweather.ui.city.CityListFragment;
+import com.example.cityweather.ui.forecast.ForecastFragment;
 import com.example.cityweather.ui.map.MapFragment;
 
 import butterknife.BindView;
@@ -48,7 +50,17 @@ public class MainActivity extends AppCompatActivity {
         super.onAttachFragment(fragment);
         if (fragment instanceof MapFragment) {
             ((MapFragment) fragment).setFragmentInteractionListener(mMapFragmentInteractionListener);
+        } else if (fragment instanceof CityFragment) {
+            ((CityFragment) fragment).setFragmentInteractionListener(mCityFragmentInteractionListener);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -89,5 +101,10 @@ public class MainActivity extends AppCompatActivity {
                 public void showCityListFragment(@Nullable String searchQuery) {
                     addFragment(CityListFragment.newInstance(searchQuery), CityListFragment.TAG, true);
                 }
+            };
+
+    private CityFragment.CityFragmentInteractionListener mCityFragmentInteractionListener =
+            city -> {
+                addFragment(ForecastFragment.newInstance(city), ForecastFragment.TAG, true);
             };
 }
