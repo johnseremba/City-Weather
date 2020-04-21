@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel;
 import androidx.work.WorkManager;
 
 import com.example.cityweather.data.Repository;
+import com.example.cityweather.data.local.model.City;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.concurrent.Executors;
 
 public class MapFragmentViewModel extends ViewModel {
     private final Repository repository;
@@ -21,39 +24,56 @@ public class MapFragmentViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public void scheduleForecastSyncJob(Context context) {
+    void scheduleForecastSyncJob(Context context) {
         WorkManager.getInstance(context).enqueue(repository.createWorkRequest());
     }
 
-    public PlacesClient getPlacesClient() {
+    void bookMarkAndGetWeatherInformation(City city) {
+        // Check if city is already bookmarked,
+        // if not save it in local db and get weather information
+        Executors.newSingleThreadExecutor().execute(() -> {
+            if (!isCityBookmarked(city)) {
+                long id = repository.getLocalDataSource().createCity(city);
+                city.setId((int) id);
+                repository.triggerForecastFetch(city);
+            }
+        });
+    }
+
+    private boolean isCityBookmarked(City city) {
+        int count = repository.getLocalDataSource().getCityCount(city.getLatitude(), city.getLongitude());
+        return count > 0;
+    }
+
+    PlacesClient getPlacesClient() {
         return placesClient;
     }
 
-    public void setPlacesClient(PlacesClient placesClient) {
+    void setPlacesClient(PlacesClient placesClient) {
         this.placesClient = placesClient;
     }
 
-    public Place getUserHomeLocation() {
+    Place getUserHomeLocation() {
         return userHomeLocation;
     }
 
-    public void setUserHomeLocation(Place userHomeLocation) {
+    void setUserHomeLocation(Place userHomeLocation) {
         this.userHomeLocation = userHomeLocation;
     }
 
-    public Place getSelectedPlace() {
+    Place getSelectedPlace() {
         return selectedPlace;
     }
 
-    public void setSelectedPlace(Place selectedPlace) {
+    void setSelectedPlace(Place selectedPlace) {
         this.selectedPlace = selectedPlace;
     }
 
-    public GoogleMap getGoogleMap() {
+    GoogleMap getGoogleMap() {
         return googleMap;
     }
 
-    public void setGoogleMap(GoogleMap googleMap) {
+    void setGoogleMap(GoogleMap googleMap) {
         this.googleMap = googleMap;
     }
 }

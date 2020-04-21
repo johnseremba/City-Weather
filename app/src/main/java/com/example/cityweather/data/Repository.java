@@ -63,7 +63,9 @@ public class Repository {
                     @Override
                     public void onSuccess(@Nullable List<Forecast> result) {
                         // store returned forecast
-                        localDataSource.insertForecast(result);
+                        if (result != null && result.size() > 0) {
+                            localDataSource.insertForecast(result);
+                        }
                     }
 
                     @Override

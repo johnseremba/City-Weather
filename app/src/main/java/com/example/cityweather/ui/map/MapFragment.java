@@ -154,21 +154,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void initEventListeners() {
         mFabFocusMap.setOnClickListener(v -> updateCameraPosition(mViewModel.getUserHomeLocation()));
         mFabCitiesList.setOnClickListener(v -> showBookmarkedCities(null));
-        mTxtBookmark.setOnClickListener(v -> {
-            Place selectedPlace = mViewModel.getSelectedPlace();
-            if (selectedPlace != null && selectedPlace.getLatLng() != null) {
-                City city = new City(
-                        new Date(),
-                        selectedPlace.getName(),
-                        selectedPlace.getAddress(),
-                        selectedPlace.getLatLng().latitude,
-                        selectedPlace.getLatLng().longitude);
-                mListener.showDetailsFragment(city);
-            } else {
-                Toast.makeText(getContext(), getString(R.string.msg_select_city), Toast.LENGTH_SHORT).show();
-            }
-        });
+        mTxtBookmark.setOnClickListener(v -> bookMarkCity());
+    }
 
+    private void bookMarkCity() {
+        Place selectedPlace = mViewModel.getSelectedPlace();
+        if (selectedPlace == null || selectedPlace.getLatLng() == null) {
+            Toast.makeText(getContext(), getString(R.string.msg_select_city), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        City city = new City(
+                new Date(),
+                selectedPlace.getName(),
+                selectedPlace.getAddress(),
+                selectedPlace.getLatLng().latitude,
+                selectedPlace.getLatLng().longitude);
+
+        // Fetch Weather information for selected city
+        mViewModel.bookMarkAndGetWeatherInformation(city);
+        // Show Fragment to enter description for city
+        mListener.showDetailsFragment(city);
     }
 
     private void initMapAndPlaces() {
@@ -252,14 +257,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         updateCameraPosition(place);
     }
 
-    private void updateBottomSheet(@NonNull Place place) {
+    private void updateBottomSheet(Place place) {
+        if (place == null) return;
         mTxtCityName.setText(place.getName());
         mTxtCityDesc.setText(place.getAddress());
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    private void updateCameraPosition(@NonNull Place place) {
-        if (place.getLatLng() == null) {
+    private void updateCameraPosition(Place place) {
+        if (place == null || place.getLatLng() == null) {
             Toast.makeText(getContext(), getString(R.string.msg_wrong_location), Toast.LENGTH_SHORT).show();
             return;
         }

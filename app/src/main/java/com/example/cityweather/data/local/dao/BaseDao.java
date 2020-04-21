@@ -12,7 +12,7 @@ interface BaseDao<T> {
     void insertObjects(List<T> objects);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(T[] objects);
+    long insert(T object);
 
     @Update
     void updateObjects(List<T> objects);

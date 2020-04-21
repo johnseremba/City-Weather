@@ -21,6 +21,9 @@ public interface CityDao extends BaseDao<City> {
     @Query("SELECT * FROM city WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
     LiveData<City> getCityByCoordinates(double latitude, double longitude);
 
+    @Query("SELECT * FROM city WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
+    int getCityCountByCoordinates(double latitude, double longitude);
+
     @Query("SELECT * FROM city WHERE name LIKE :query")
     LiveData<List<City>> searchCityByName(String query);
 

@@ -16,7 +16,11 @@ public interface LocalDataSourceContract {
 
     LiveData<List<City>> searchCityByName(String query);
 
-    void createCities(City... cities);
+    List<City> getCitiesList();
+
+    int getCityCount(double latitude, double longitude);
+
+    long createCity(City city);
 
     void updateCity(City city);
 
@@ -25,6 +29,4 @@ public interface LocalDataSourceContract {
     void insertForecast(List<Forecast> forecastList);
 
     int getCityForecastCount(int cityId);
-
-    List<City> getCitiesList();
 }

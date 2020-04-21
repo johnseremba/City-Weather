@@ -53,8 +53,8 @@ public class LocalDataSource implements LocalDataSourceContract {
     }
 
     @Override
-    public void createCities(City... cities) {
-        executors.getDiskIO().execute(() -> cityDao.insert(cities));
+    public long createCity(City city) {
+        return cityDao.insert(city);
     }
 
     @Override
@@ -80,5 +80,10 @@ public class LocalDataSource implements LocalDataSourceContract {
     @Override
     public List<City> getCitiesList() {
         return cityDao.getCitiesList();
+    }
+
+    @Override
+    public int getCityCount(double latitude, double longitude) {
+        return cityDao.getCityCountByCoordinates(latitude, longitude);
     }
 }
