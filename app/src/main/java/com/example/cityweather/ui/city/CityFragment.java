@@ -3,6 +3,8 @@ package com.example.cityweather.ui.city;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -60,7 +62,11 @@ public class CityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() == null) requireActivity().onBackPressed();
+        if (getArguments() == null) {
+            requireActivity().onBackPressed();
+            return;
+        }
+        mCity = getArguments().getParcelable(KEY_SELECTED_CITY);
     }
 
     @Override
@@ -68,11 +74,9 @@ public class CityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_city, container, false);
         ButterKnife.bind(this, view);
-        City city = getArguments().getParcelable(KEY_SELECTED_CITY);
-        updateAppBar(city);
         mViewModel = ViewModelProviders.of(
                 this,
-                InjectorUtils.provideCityFragmentViewModelFactory(requireContext(), city))
+                InjectorUtils.provideCityFragmentViewModelFactory(requireContext(), mCity))
                 .get(CityFragmentViewModel.class);
         return view;
     }
@@ -80,11 +84,17 @@ public class CityFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initAppBar(mCity);
         initListeners();
         initViewModelObservers();
     }
 
-    private void updateAppBar(City city) {
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void initAppBar(City city) {
         mToolbar.setTitle(city.getName());
         ((MainActivity) requireActivity()).setSupportActionBar(mToolbar);
         ActionBar actionBar = ((MainActivity) requireActivity()).getSupportActionBar();

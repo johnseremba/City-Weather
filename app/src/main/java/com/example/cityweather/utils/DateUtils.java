@@ -30,4 +30,8 @@ public class DateUtils {
         return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 
+    public static String getDayString(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E");
+        return simpleDateFormat.format(date).toUpperCase();
+    }
 }

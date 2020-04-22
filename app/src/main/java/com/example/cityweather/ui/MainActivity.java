@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             ((MapFragment) fragment).setFragmentInteractionListener(mMapFragmentInteractionListener);
         } else if (fragment instanceof CityFragment) {
             ((CityFragment) fragment).setFragmentInteractionListener(mCityFragmentInteractionListener);
+        } else if (fragment instanceof CityListFragment) {
+            ((CityListFragment) fragment).setFragmentInteractionListener(mCityListFragmentInteractionListener);
         }
     }
 
@@ -104,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private CityFragment.CityFragmentInteractionListener mCityFragmentInteractionListener =
-            city -> {
-                addFragment(ForecastFragment.newInstance(city), ForecastFragment.TAG, true);
-            };
+            city -> addFragment(ForecastFragment.newInstance(city), ForecastFragment.TAG, true);
+
+    private CityListFragment.CityListFragmentInteractionListener mCityListFragmentInteractionListener =
+            city -> addFragment(ForecastFragment.newInstance(city), ForecastFragment.TAG, true);
 }

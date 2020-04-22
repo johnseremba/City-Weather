@@ -8,5 +8,8 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="green">#388E3C</color>
+    <color name="light_green">#CDDC39</color>
+    <color name="cyan">#00BCD4</color>
     <color name="background_translucent_black">#88000000</color>
 </resources>
