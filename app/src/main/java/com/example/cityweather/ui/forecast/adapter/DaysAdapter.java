@@ -1,6 +1,5 @@
 package com.example.cityweather.ui.forecast.adapter;
 
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cityweather.R;
@@ -21,8 +19,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.cityweather.utils.WeatherUtils.getRandomColor;
 
 public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
     private ItemClickListener<Date> itemClickListener;

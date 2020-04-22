@@ -40,6 +40,15 @@
             android:authorities="com.example.cityweather.ui.search.CitiesSuggestionsProvider"
             android:enabled="true"
             android:exported="false" />
+
+        <receiver android:name=".widget.CityWeatherWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/city_weather_appwidget_info"/>
+        </receiver>
     </application>
 
 </manifest>

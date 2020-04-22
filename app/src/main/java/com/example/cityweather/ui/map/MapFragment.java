@@ -1,7 +1,6 @@
 package com.example.cityweather.ui.map;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -48,8 +47,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.cityweather.utils.InjectorUtils.SHARED_PREFS_NAME;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     public static final String TAG = MapFragment.class.getSimpleName();
@@ -101,9 +98,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences prefs = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        checkInitialAccessAndScheduleJob(prefs);
-
+        checkInitialAccessAndScheduleJob();
         initEventListeners();
         initAutoCompleteWidget();
         iniUi();
@@ -144,7 +139,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void checkInitialAccessAndScheduleJob(SharedPreferences prefs) {
+    private void checkInitialAccessAndScheduleJob() {
+        SharedPreferences prefs = InjectorUtils.provideSharedPreferences(requireContext().getApplicationContext());
         boolean initialAccess = prefs.getBoolean(FIRST_TIME_ACCESS, false);
         if (initialAccess) return;
         prefs.edit().putBoolean(FIRST_TIME_ACCESS, true).apply();

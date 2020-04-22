@@ -25,6 +25,7 @@ import com.example.cityweather.ui.forecast.adapter.HourlyForecastAdapter;
 import com.example.cityweather.ui.forecast.viewmodel.ForecastFragmentViewModel;
 import com.example.cityweather.utils.DateUtils;
 import com.example.cityweather.utils.InjectorUtils;
+import com.example.cityweather.widget.CityWeatherWidgetProvider;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -136,6 +137,10 @@ public class ForecastFragment extends Fragment {
 
             Forecast firstEntry = mViewModel.getWeatherData().pollFirstEntry().getValue().get(0);
             updateWeatherUI(firstEntry);
+
+            // Update city weather Widget with the currently selected city weather forecast
+            CityWeatherWidgetProvider.sendRefreshBroadcast(
+                    requireActivity().getApplicationContext(), mViewModel.getCity(), firstEntry);
 
             Date firstDay = mViewModel.getWeatherData().firstKey();
             List<Forecast> forecastItems = mViewModel.getWeatherData().get(firstDay);

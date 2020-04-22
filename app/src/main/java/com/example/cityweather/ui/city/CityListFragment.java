@@ -2,6 +2,7 @@ package com.example.cityweather.ui.city;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +36,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.cityweather.utils.InjectorUtils.KEY_SELECTED_CITY_ID;
+import static com.example.cityweather.utils.InjectorUtils.SHARED_PREFS_NAME;
 
 public class CityListFragment extends Fragment implements RecyclerTouchHelper.RecyclerItemTouchHelperListener {
     public static final String TAG = CityListFragment.class.getSimpleName();
@@ -161,7 +165,14 @@ public class CityListFragment extends Fragment implements RecyclerTouchHelper.Re
     }
 
     private void initRecyclerView() {
-        mCityListAdapter = new CityListAdapter(city -> mFragmentInteractionListener.showForecastFragment(city));
+        mCityListAdapter = new CityListAdapter(city -> {
+            // Set selected city id in the shared prefs, so that the widget can get it
+            SharedPreferences prefs = InjectorUtils.provideSharedPreferences(
+                    requireContext().getApplicationContext());
+            prefs.edit().putInt(KEY_SELECTED_CITY_ID, city.getId()).apply();
+            mFragmentInteractionListener.showForecastFragment(city);
+        });
+
         mRecyclerView.setAdapter(mCityListAdapter);
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);

@@ -1,6 +1,7 @@
 package com.example.cityweather.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.cityweather.data.Repository;
 import com.example.cityweather.data.api.OnlineDataSource;
@@ -21,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class InjectorUtils {
     public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
     public static final String SHARED_PREFS_NAME = "com.example.cityweather.shared_prefs";
+    public static final String KEY_SELECTED_CITY_ID = "KEY_SELECTED_CITY_ID";
 
     public static Repository provideRepository(Context context) {
         return Repository.getInstance(
@@ -74,5 +76,9 @@ public class InjectorUtils {
 
     public static ForecastFragmentViewModelFactory provideForecastFragmentViewModelFactory(Context context, City city) {
         return new ForecastFragmentViewModelFactory(provideRepository(context), city);
+    }
+
+    public static SharedPreferences provideSharedPreferences(Context applicationContext) {
+        return applicationContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
     }
 }
