@@ -32,4 +32,8 @@ public class CityListFragmentViewModel extends ViewModel {
     public LiveData<List<City>> searchForCity(String searchQuery) {
         return repository.getLocalDataSource().searchCityByName(searchQuery);
     }
+
+    public void deleteCities(List<City> citiesToDelete) {
+        repository.getLocalDataSource().deleteCities(citiesToDelete);
+    }
 }

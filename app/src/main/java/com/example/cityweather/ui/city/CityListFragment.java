@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -16,26 +15,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cityweather.R;
 import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.ui.MainActivity;
 import com.example.cityweather.ui.city.adapter.CityListAdapter;
+import com.example.cityweather.ui.city.adapter.RecyclerTouchHelper;
 import com.example.cityweather.ui.city.viewmodel.CityListFragmentViewModel;
 import com.example.cityweather.utils.InjectorUtils;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CityListFragment extends Fragment {
+public class CityListFragment extends Fragment implements RecyclerTouchHelper.RecyclerItemTouchHelperListener {
     public static final String TAG = CityListFragment.class.getSimpleName();
     private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
     private String mSearchParam;
     private CityListFragmentViewModel mViewMode;
     private CityListFragmentInteractionListener mFragmentInteractionListener;
+    private CityListAdapter mCityListAdapter;
+    private List<City> mCitiesToDelete = new ArrayList<>();
 
     public void setFragmentInteractionListener(CityListFragmentInteractionListener mFragmentInteractionListener) {
         this.mFragmentInteractionListener = mFragmentInteractionListener;
@@ -47,7 +55,8 @@ public class CityListFragment extends Fragment {
     TextView mTxtNoContent;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    private CityListAdapter mCityListAdapter;
+    @BindView(R.id.coordinator_view)
+    CoordinatorLayout mCoordinatorLayout;
 
     public CityListFragment() {
         // Required empty public constructor
@@ -107,6 +116,38 @@ public class CityListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Delete cities scheduled to be deleted when the fragment pauses
+        if (mCitiesToDelete != null && mCitiesToDelete.size() > 0) {
+            mViewMode.deleteCities(mCitiesToDelete);
+        }
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        // Row is swiped from recycler view
+        if (viewHolder instanceof CityListAdapter.ViewHolder) {
+            final City deletedCity = mCityListAdapter.getItemAtPosition(position);
+            mCitiesToDelete.add(deletedCity);
+            mCityListAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            Snackbar snackbar = Snackbar.make(
+                    mCoordinatorLayout,
+                    deletedCity.getName() + getString(R.string.msg_city_deleted),
+                    Snackbar.LENGTH_LONG);
+
+            snackbar.setAction(R.string.btn_undo, v -> {
+                mCitiesToDelete.remove(deletedCity);
+                mCityListAdapter.restoreItem(deletedCity, position);
+            });
+
+            snackbar.setActionTextColor(getResources().getColor(R.color.accent, null));
+            snackbar.show();
+        }
+    }
+
     private void initAppBar() {
         mToolbar.setTitle(getString(R.string.title_bookmarked_cities));
         ((MainActivity) requireActivity()).setSupportActionBar(mToolbar);
@@ -121,7 +162,8 @@ public class CityListFragment extends Fragment {
     private void initRecyclerView() {
         mCityListAdapter = new CityListAdapter(city -> mFragmentInteractionListener.showForecastFragment(city));
         mRecyclerView.setAdapter(mCityListAdapter);
-        //TODO: Add swipe to delete on recycler view
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);
     }
 
     private void initCitiesObserver() {

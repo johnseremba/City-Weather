@@ -86,4 +86,11 @@ public class LocalDataSource implements LocalDataSourceContract {
     public int getCityCount(double latitude, double longitude) {
         return cityDao.getCityCountByCoordinates(latitude, longitude);
     }
+
+    @Override
+    public void deleteCities(List<City> cities) {
+        executors.getDiskIO().execute(() -> {
+            cityDao.deleteObjects(cities);
+        });
+    }
 }

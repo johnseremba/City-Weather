@@ -24,4 +24,8 @@
     <string name="desc_weather_icon">Weather Icon</string>
     <string name="err_failed_to_get_location">Failed to get current location!</string>
     <string name="view_weather_forecast">View Weather Forecast</string>
+    <string name="desc_delete_icon">Delete icon</string>
+    <string name="btn_delete">Delete</string>
+    <string name="msg_city_deleted">\" removed from bookmarked cities\"</string>
+    <string name="btn_undo">UNDO</string>
 </resources>

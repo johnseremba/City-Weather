@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +17,7 @@ import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.ui.base.ItemClickListener;
 import com.example.cityweather.utils.WeatherUtils;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHolder> {
     private final ItemClickListener<City> itemClickListener;
-    private List<City> citiesList = Collections.emptyList();
+    private List<City> citiesList = new ArrayList<>();
 
     public CityListAdapter(ItemClickListener<City> itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -52,13 +53,31 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
         this.notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public void removeItem(int position) {
+        citiesList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(City city, int position) {
+        citiesList.add(position, city);
+        notifyItemInserted(position);
+    }
+
+    public City getItemAtPosition(int position) {
+        return citiesList.get(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.city_name)
         TextView cityName;
         @BindView(R.id.city_description)
         TextView cityDesc;
         @BindView(R.id.city_icon)
         ImageView cityIcon;
+        @BindView(R.id.item_background)
+        ConstraintLayout itemBackground;
+        @BindView(R.id.item_foreground)
+        ConstraintLayout itemForeground;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
