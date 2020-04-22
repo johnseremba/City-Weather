@@ -8,7 +8,6 @@ import com.example.cityweather.data.local.model.Forecast;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +59,7 @@ public class OnlineDataSource implements OnlineDataSourceContract {
     private List<Forecast> parseForecastData(int cityId, List<WeatherItem> weatherItems) {
         List<Forecast> forecastList = new ArrayList<>();
         for (WeatherItem item : weatherItems) {
-            double temperature = item.getTemperature().temperatureInCelsius();
+            double temperature = item.getTemperature().getTemperatureInCelsius();
             String icon = item.getMainIcon();
             Date date = item.getDate();
             forecastList.add(new Forecast(cityId, temperature, date, icon));

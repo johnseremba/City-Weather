@@ -33,11 +33,6 @@ public class LocalDataSource implements LocalDataSourceContract {
     }
 
     @Override
-    public LiveData<City> getCityById(int cityId) {
-        return cityDao.getCityById(cityId);
-    }
-
-    @Override
     public LiveData<City> getCityByCoordinates(double latitude, double longitude) {
         return cityDao.getCityByCoordinates(latitude, longitude);
     }
@@ -75,6 +70,11 @@ public class LocalDataSource implements LocalDataSourceContract {
     @Override
     public int getCityForecastCount(int cityId) {
         return forecastDao.getCityForecastCount(cityId);
+    }
+
+    @Override
+    public LiveData<List<Forecast>> getCityForecast(int cityId) {
+        return forecastDao.getCityForecast(cityId);
     }
 
     @Override

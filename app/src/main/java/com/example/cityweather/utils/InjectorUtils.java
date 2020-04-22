@@ -10,6 +10,7 @@ import com.example.cityweather.data.local.LocalDataSource;
 import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.ui.city.viewmodel.CityFragmentViewModelFactory;
 import com.example.cityweather.ui.city.viewmodel.CityListFragmentViewModelFactory;
+import com.example.cityweather.ui.forecast.viewmodel.ForecastFragmentViewModelFactory;
 import com.example.cityweather.ui.map.MapFragmentViewModelFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -69,5 +70,9 @@ public class InjectorUtils {
 
     public static CityListFragmentViewModelFactory provideCityListFragmentViewModelFactory(Context context) {
         return new CityListFragmentViewModelFactory(provideRepository(context));
+    }
+
+    public static ForecastFragmentViewModelFactory provideForecastFragmentViewModelFactory(Context context, City city) {
+        return new ForecastFragmentViewModelFactory(provideRepository(context), city);
     }
 }

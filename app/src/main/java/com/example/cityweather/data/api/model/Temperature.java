@@ -42,7 +42,7 @@ public class Temperature implements Parcelable {
         this.tempInKelvin = tempInKelvin;
     }
 
-    public double temperatureInCelsius() {
+    public double getTemperatureInCelsius() {
         return WeatherUtils.getTemperatureInCelsius(this.tempInKelvin);
     }
 

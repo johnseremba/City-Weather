@@ -8,10 +8,10 @@ import java.util.Date;
 
 @SuppressLint("SimpleDateFormat")
 public class DateUtils {
-    public static Date getShortDate(String dateString) {
+    public static Date getShortDate(Date date) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            return simpleDateFormat.parse(dateString);
+            return simpleDateFormat.parse(getDateString(date));
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -19,14 +19,14 @@ public class DateUtils {
     }
 
     public static String getNormalDate(Date date) {
-        return new SimpleDateFormat("EEEE DD yyyy").format(date);
+        return new SimpleDateFormat("EEEE dd MMMM yyyy").format(date);
     }
 
     public static String getHours(Date date) {
         return new SimpleDateFormat("hh a").format(date);
     }
 
-    private String getDateString(Date date) {
+    public static String getDateString(Date date) {
         return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 

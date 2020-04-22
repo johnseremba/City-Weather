@@ -8,8 +8,6 @@ import com.example.cityweather.data.local.model.Forecast;
 import java.util.List;
 
 public interface LocalDataSourceContract {
-    LiveData<City> getCityById(int cityId);
-
     LiveData<City> getCityByCoordinates(double latitude, double longitude);
 
     LiveData<List<City>> getCities();
@@ -31,4 +29,6 @@ public interface LocalDataSourceContract {
     void deleteCities(List<City> cities);
 
     int getCityForecastCount(int cityId);
+
+    LiveData<List<Forecast>> getCityForecast(int cityId);
 }

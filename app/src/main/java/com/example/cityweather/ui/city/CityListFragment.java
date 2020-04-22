@@ -45,8 +45,8 @@ public class CityListFragment extends Fragment implements RecyclerTouchHelper.Re
     private CityListAdapter mCityListAdapter;
     private List<City> mCitiesToDelete = new ArrayList<>();
 
-    public void setFragmentInteractionListener(CityListFragmentInteractionListener mFragmentInteractionListener) {
-        this.mFragmentInteractionListener = mFragmentInteractionListener;
+    public void setFragmentInteractionListener(CityListFragmentInteractionListener listener) {
+        this.mFragmentInteractionListener = listener;
     }
 
     @BindView(R.id.cities_recycler_view)
@@ -108,9 +108,10 @@ public class CityListFragment extends Fragment implements RecyclerTouchHelper.Re
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.cities_menu, menu);
-        SearchManager searchManager = (SearchManager) requireActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         if (searchManager != null) {
             SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
             searchView.setQueryRefinementEnabled(true);
             searchView.setIconifiedByDefault(true);
         }

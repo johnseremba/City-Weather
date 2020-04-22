@@ -1,6 +1,9 @@
 package com.example.cityweather.ui;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +21,7 @@ import com.example.cityweather.ui.city.CityFragment;
 import com.example.cityweather.ui.city.CityListFragment;
 import com.example.cityweather.ui.forecast.ForecastFragment;
 import com.example.cityweather.ui.map.MapFragment;
+import com.example.cityweather.ui.search.CitiesSuggestionsProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         fragmentManager = getSupportFragmentManager();
 
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            handleSearchIntent(intent);
+            return;
+        }
+
         // Handle configuration changes, don't instantiate default fragment
         if (savedInstanceState == null) {
             MapFragment mapFragment = MapFragment.getInstance();
@@ -54,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             ((CityFragment) fragment).setFragmentInteractionListener(mCityFragmentInteractionListener);
         } else if (fragment instanceof CityListFragment) {
             ((CityListFragment) fragment).setFragmentInteractionListener(mCityListFragmentInteractionListener);
+        } else if (fragment instanceof ForecastFragment) {
+            ((ForecastFragment) fragment).setInteractionListener(mForecastFragmentInteractionListener);
         }
     }
 
@@ -73,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             fragmentManager.popBackStackImmediate();
         }
+    }
+
+    private void handleSearchIntent(Intent intent) {
+        String searchQuery = intent.getStringExtra(SearchManager.QUERY);
+        SearchRecentSuggestions suggestions = new SearchRecentSuggestions(
+                this,
+                CitiesSuggestionsProvider.AUTHORITY,
+                CitiesSuggestionsProvider.MODE);
+        suggestions.saveRecentQuery(searchQuery, null);
+        addFragment(CityListFragment.newInstance(searchQuery), CityListFragment.TAG, false);
     }
 
     private void addFragment(Fragment fragment, String tag, boolean addToBackStack) {
@@ -110,4 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CityListFragment.CityListFragmentInteractionListener mCityListFragmentInteractionListener =
             city -> addFragment(ForecastFragment.newInstance(city), ForecastFragment.TAG, true);
+
+    private ForecastFragment.ForecastFragmentInteractionListener mForecastFragmentInteractionListener =
+            city -> addFragment(CityFragment.newInstance(city), CityFragment.TAG, true);
 }

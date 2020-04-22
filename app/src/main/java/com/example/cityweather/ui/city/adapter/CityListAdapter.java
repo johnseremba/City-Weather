@@ -1,6 +1,7 @@
 package com.example.cityweather.ui.city.adapter;
 
 import android.graphics.PorterDuff;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
             cityIcon.setColorFilter(
                     ContextCompat.getColor(itemView.getContext(), WeatherUtils.getRandomColor()),
                     PorterDuff.Mode.SRC_IN);
-            itemView.setOnClickListener(v -> itemClickListener.onItemClick(city));
+            itemForeground.setOnClickListener(v -> itemClickListener.onItemClick(city));
         }
     }
 }
