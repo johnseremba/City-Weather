@@ -27,9 +27,10 @@ Reviews of the user are stored on a local database cache, and the user can share
 ## How to Run the Project
 
 In order to Run the project, please follow this.
-1. Create a `keystore.properties` file in the root folder of the project (city-weather/keystore.properties)
+1. Create a `keystore.properties` file in the root folder of the project (`city-weather/keystore.properties`)
 2. Add your API_KEYS to this file. I didn't commit it to GitHub due to security concerns. However, this is a sample file that you can use to run the project.
-```
+
+```groovy
 OPEN_WEATHER_API_KEY="<open-weather-api-key>"
 GOOGLE_MAPS_API_KEY="<google-maps-api-key>"
 KEY_ALIAS=cityWeatherAlias
@@ -37,8 +38,9 @@ KEY_STORE_FILE=./../city-weather-keystore
 KEY_STORE_PASSWORD=CityWeather
 KEY_PASSWORD=CityWeather
 ```
-3. Create your Open weather API key here; https://openweathermap.org/api
-4. Create your Google API Key (`http://console.cloud.google.com/`), and enable the Google Maps and Google Places SDKs for the API Key.
+
+3. Create your [Open weather API key](https://openweathermap.org/api)
+4. Create your [Google API Key](http://console.cloud.google.com/), and enable the Google Maps and Google Places SDKs for the API Key.
 5. Add them to the `keystore.properties` file and you're ready to build and run the project.
 
 ## Screenshots
