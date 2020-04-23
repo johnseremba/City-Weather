@@ -2,6 +2,7 @@ package com.example.cityweather.data.local;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.cityweather.data.api.RequestCallback;
 import com.example.cityweather.data.local.model.City;
 import com.example.cityweather.data.local.model.Forecast;
 
@@ -15,6 +16,8 @@ public interface LocalDataSourceContract {
     LiveData<List<City>> searchCityByName(String query);
 
     List<City> getCitiesList();
+
+    void getForecastByCityIdAsynchronous(int cityId, RequestCallback<Forecast> callback);
 
     int getCityCount(double latitude, double longitude);
 

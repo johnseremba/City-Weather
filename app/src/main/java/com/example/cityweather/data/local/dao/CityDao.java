@@ -16,7 +16,7 @@ public interface CityDao extends BaseDao<City> {
     LiveData<List<City>> getCities();
 
     @Query("SELECT * FROM city WHERE city_id = :cityId")
-    LiveData<City> getCityById(int cityId);
+    City getCityByIdSynchronous(int cityId);
 
     @Query("SELECT * FROM city WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
     LiveData<City> getCityByCoordinates(double latitude, double longitude);

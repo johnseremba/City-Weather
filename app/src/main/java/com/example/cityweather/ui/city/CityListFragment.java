@@ -38,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.cityweather.utils.InjectorUtils.KEY_SELECTED_CITY_ID;
-import static com.example.cityweather.utils.InjectorUtils.SHARED_PREFS_NAME;
+import static com.example.cityweather.utils.InjectorUtils.KEY_SELECTED_CITY_NAME;
 
 public class CityListFragment extends Fragment implements RecyclerTouchHelper.RecyclerItemTouchHelperListener {
     public static final String TAG = CityListFragment.class.getSimpleName();
@@ -167,15 +167,20 @@ public class CityListFragment extends Fragment implements RecyclerTouchHelper.Re
     private void initRecyclerView() {
         mCityListAdapter = new CityListAdapter(city -> {
             // Set selected city id in the shared prefs, so that the widget can get it
-            SharedPreferences prefs = InjectorUtils.provideSharedPreferences(
-                    requireContext().getApplicationContext());
-            prefs.edit().putInt(KEY_SELECTED_CITY_ID, city.getId()).apply();
+            updateSharedPrefsWithSelectedCity(city);
             mFragmentInteractionListener.showForecastFragment(city);
         });
-
         mRecyclerView.setAdapter(mCityListAdapter);
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);
+    }
+
+    private void updateSharedPrefsWithSelectedCity(City city) {
+        SharedPreferences prefs = InjectorUtils.provideSharedPreferences(requireContext().getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(KEY_SELECTED_CITY_ID, city.getId());
+        editor.putString(KEY_SELECTED_CITY_NAME, city.getName());
+        editor.apply();
     }
 
     private void initCitiesObserver() {

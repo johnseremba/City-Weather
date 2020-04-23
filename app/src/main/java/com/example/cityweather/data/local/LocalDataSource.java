@@ -2,6 +2,8 @@ package com.example.cityweather.data.local;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.cityweather.data.api.RequestCallback;
+import com.example.cityweather.data.api.ResponseCode;
 import com.example.cityweather.data.local.dao.CityDao;
 import com.example.cityweather.data.local.dao.ForecastDao;
 import com.example.cityweather.data.local.model.City;
@@ -89,8 +91,20 @@ public class LocalDataSource implements LocalDataSourceContract {
 
     @Override
     public void deleteCities(List<City> cities) {
+        executors.getDiskIO().execute(() -> cityDao.deleteObjects(cities));
+    }
+
+    @Override
+    public void getForecastByCityIdAsynchronous(int cityId, RequestCallback<Forecast> callback) {
         executors.getDiskIO().execute(() -> {
-            cityDao.deleteObjects(cities);
+            final Forecast forecast = forecastDao.getCityForecastSynchronous(cityId);
+            executors.getMainThread().execute(() -> {
+                if (forecast != null) {
+                    callback.onSuccess(forecast);
+                } else {
+                    callback.onError(ResponseCode.NO_DATA, null);
+                }
+            });
         });
     }
 }

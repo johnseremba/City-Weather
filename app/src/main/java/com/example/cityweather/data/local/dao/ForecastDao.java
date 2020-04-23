@@ -13,6 +13,9 @@ public interface ForecastDao extends BaseDao<Forecast> {
     @Query("SELECT * FROM forecast WHERE city_id = :cityId")
     LiveData<List<Forecast>> getCityForecast(int cityId);
 
+    @Query("SELECT * FROM forecast WHERE city_id = :cityId")
+    Forecast getCityForecastSynchronous(int cityId);
+
     @Query("DELETE FROM forecast WHERE city_id = :cityId")
     void deleteForecastByCityId(int cityId);
 

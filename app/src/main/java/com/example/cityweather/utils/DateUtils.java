@@ -19,19 +19,19 @@ public class DateUtils {
     }
 
     public static String getNormalDate(Date date) {
-        return new SimpleDateFormat("EEEE dd MMMM yyyy").format(date);
+        return date != null ? new SimpleDateFormat("EEEE dd MMMM yyyy").format(date) : "";
     }
 
     public static String getHours(Date date) {
-        return new SimpleDateFormat("hh a").format(date);
+        return date != null ? new SimpleDateFormat("hh a").format(date) : "";
     }
 
     public static String getDateString(Date date) {
-        return new SimpleDateFormat("dd-MM-yyyy").format(date);
+        return date != null ? new SimpleDateFormat("dd-MM-yyyy").format(date) : "";
     }
 
     public static String getDayString(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E");
-        return simpleDateFormat.format(date).toUpperCase();
+        return date != null ? simpleDateFormat.format(date).toUpperCase() : "";
     }
 }

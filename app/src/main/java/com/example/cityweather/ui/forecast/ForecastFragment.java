@@ -139,8 +139,7 @@ public class ForecastFragment extends Fragment {
             updateWeatherUI(firstEntry);
 
             // Update city weather Widget with the currently selected city weather forecast
-            CityWeatherWidgetProvider.sendRefreshBroadcast(
-                    requireActivity().getApplicationContext(), mViewModel.getCity(), firstEntry);
+            CityWeatherWidgetProvider.sendRefreshBroadcast(requireActivity().getApplicationContext(), firstEntry);
 
             Date firstDay = mViewModel.getWeatherData().firstKey();
             List<Forecast> forecastItems = mViewModel.getWeatherData().get(firstDay);

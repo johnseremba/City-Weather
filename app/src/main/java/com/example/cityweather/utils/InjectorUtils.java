@@ -23,6 +23,7 @@ public class InjectorUtils {
     public static final String BASE_URL = "https://api.openweathermap.org/data/2.5/";
     public static final String SHARED_PREFS_NAME = "com.example.cityweather.shared_prefs";
     public static final String KEY_SELECTED_CITY_ID = "KEY_SELECTED_CITY_ID";
+    public static final String KEY_SELECTED_CITY_NAME = "KEY_SELECTED_CITY_NAME";
 
     public static Repository provideRepository(Context context) {
         return Repository.getInstance(

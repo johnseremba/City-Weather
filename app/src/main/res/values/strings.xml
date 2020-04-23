@@ -28,4 +28,5 @@
     <string name="btn_delete">Delete</string>
     <string name="msg_city_deleted">\" removed from bookmarked cities\"</string>
     <string name="btn_undo">UNDO</string>
+    <string name="msg_no_city_weather">No city weather data!</string>
 </resources>

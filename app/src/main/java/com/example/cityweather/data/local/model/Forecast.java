@@ -56,6 +56,7 @@ public class Forecast implements Parcelable {
         cityId = in.readInt();
         temperature = in.readDouble();
         iconUrl = in.readString();
+        datetime = (Date) in.readSerializable();
     }
 
     public static final Creator<Forecast> CREATOR = new Creator<Forecast>() {
@@ -132,5 +133,6 @@ public class Forecast implements Parcelable {
         dest.writeInt(cityId);
         dest.writeDouble(temperature);
         dest.writeString(iconUrl);
+        dest.writeSerializable(datetime);
     }
 }
