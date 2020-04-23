@@ -28,7 +28,7 @@ Reviews of the user are stored on a local database cache, and the user can share
 <img src="screenshots/03-show-result.png" height="400px"/> <img src="screenshots/04-add-description.png" height="400px"/>
 
 <img src="screenshots/05-show-cities.png" height="400px"/> <img src="screenshots/05.1-search-cities.png" height="400px"/>
-<img src="screenshots/06-forecast.png" height="200px"/> 
+<img src="screenshots/06-forecast.png" height="400px"/> 
 
 ### App Widget
 
