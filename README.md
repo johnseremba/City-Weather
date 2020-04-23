@@ -1,8 +1,10 @@
 # City-Weather
 
-City Weather is an App that allows users to search for their favourite cities in the world (on a Google Map), bookmark them, write about their experience or expectations in such cities, and view weather information about such cities for the next 5 days to enable them to plan their trips better.
-The App is aimed at helping travellers know about the weather conditions of the Cities they are going to travel to, and also share their reviews about the cities after the visit.
-The App allows travellers to know the 5 days hourly weather forecast for a city they plan to visit, so that they can plan and pack their bags accordingly.
+City Weather is an App that allows users to search for their favourite cities in the world (on a Google Map), bookmark them, write about their experience or expectations in such cities, and view weather information about such cities for the next 5 days to enable them to plan their trips better. <br/>
+
+The App is aimed at helping travellers know about the weather conditions of the Cities they are going to travel to, and also share their reviews about the cities after the visit. <br/>
+The App allows travellers to know the 5 days hourly weather forecast for a city they plan to visit, so that they can plan and pack their bags accordingly. <br/>
+
 Reviews of the user are stored on a local database cache, and the user can share their review on other Apps like WhatsApp, Facebook etc.
 
 ## Features
@@ -21,6 +23,23 @@ Reviews of the user are stored on a local database cache, and the user can share
 * When a city is selected from the bookmarked cities list, the user shall be able to view a 5
   days Hourly weather forecast for that city.
 * The App shall have a widget that displays weather information for a selected city
+
+## How to Run the Project
+
+In order to Run the project, please follow this.
+1. Create a `keystore.properties` file in the root folder of the project (city-weather/keystore.properties)
+2. Add your API_KEYS to this file. I didn't commit it to GitHub due to security concerns. However, this is a sample file that you can use to run the project.
+```
+OPEN_WEATHER_API_KEY="<open-weather-api-key>"
+GOOGLE_MAPS_API_KEY="<google-maps-api-key>"
+KEY_ALIAS=cityWeatherAlias
+KEY_STORE_FILE=./../city-weather-keystore
+KEY_STORE_PASSWORD=CityWeather
+KEY_PASSWORD=CityWeather
+```
+3. Create your Open weather API key here; https://openweathermap.org/api
+4. Create your Google API Key (`http://console.cloud.google.com/`), and enable the Google Maps and Google Places SDKs for the API Key.
+5. Add them to the `keystore.properties` file and you're ready to build and run the project.
 
 ## Screenshots
 
