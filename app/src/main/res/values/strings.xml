@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">City Weather</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="txt_bookmark">Bookmark</string>
+    <string name="txt_search_for_city">Search for City</string>
+    <string name="search_string">Search for bookmarked city</string>
+    <string name="txt_more_info">More info.</string>
+    <string name="txt_hourly">Hourly</string>
+    <string name="txt_short_description">A short description about the city</string>
+    <string name="msg_select_city">Please first select a city!</string>
+    <string name="msg_permission_required">Location permission required for a better user experience!</string>
+    <string name="msg_wrong_location">Can\'t move to specified location!</string>
+    <string name="label_save">Save</string>
+    <string name="msg_city_saved">City saved successfully!</string>
+    <string name="msg_city_updated">City description updated successfully!</string>
+    <string name="err_description_required">A short description is required!</string>
+    <string name="title_search">Search</string>
+    <string name="title_bookmarked_cities">Bookmarked Cities</string>
+    <string name="no_content">No Content</string>
+    <string name="err_generic_msg">Oops, some error occurred!</string>
+    <string name="temperature_string">%1d&#xb0;</string>
+    <string name="title_weather_forecast">Weather Forecast</string>
+    <string name="desc_city_icon">City Icon</string>
+    <string name="desc_weather_icon">Weather Icon</string>
+    <string name="err_failed_to_get_location">Failed to get current location!</string>
+    <string name="view_weather_forecast">View Weather Forecast</string>
+    <string name="desc_delete_icon">Delete icon</string>
+    <string name="btn_delete">Delete</string>
+    <string name="msg_city_deleted">\" removed from bookmarked cities\"</string>
+    <string name="btn_undo">UNDO</string>
+    <string name="msg_no_city_weather">No city weather data!</string>
 </resources>

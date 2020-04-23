@@ -1,0 +1,56 @@
+package com.example.cityweather.data.api.model;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
+public class Weather implements Parcelable {
+    @SerializedName("icon")
+    private String icon;
+
+    public Weather(String icon) {
+        this.icon = icon;
+    }
+
+    protected Weather(Parcel in) {
+        icon = in.readString();
+    }
+
+    public static final Creator<Weather> CREATOR = new Creator<Weather>() {
+        @Override
+        public Weather createFromParcel(Parcel in) {
+            return new Weather(in);
+        }
+
+        @Override
+        public Weather[] newArray(int size) {
+            return new Weather[size];
+        }
+    };
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getIcon() {
+        return String.format("https://openweathermap.org/img/wn/%s@2x.png", this.icon);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(icon);
+    }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "icon='" + icon + '\'' +
+                '}';
+    }
+}
