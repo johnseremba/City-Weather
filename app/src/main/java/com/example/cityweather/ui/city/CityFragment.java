@@ -132,6 +132,7 @@ public class CityFragment extends Fragment {
     private void initViewModelObservers() {
         mViewModel.getCity().observe(getViewLifecycleOwner(), city -> {
             mCity = city;
+            if (city == null) return;
             isNewEntry = (city.getDescription() == null || city.getDescription().isEmpty());
             updateFabIcon(isNewEntry);
             updateUI(isNewEntry);

@@ -3,6 +3,10 @@ package com.example.cityweather.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.test.espresso.idling.CountingIdlingResource;
+
 import com.example.cityweather.data.Repository;
 import com.example.cityweather.data.api.OnlineDataSource;
 import com.example.cityweather.data.api.WeatherService;
@@ -24,6 +28,7 @@ public class InjectorUtils {
     public static final String SHARED_PREFS_NAME = "com.example.cityweather.shared_prefs";
     public static final String KEY_SELECTED_CITY_ID = "KEY_SELECTED_CITY_ID";
     public static final String KEY_SELECTED_CITY_NAME = "KEY_SELECTED_CITY_NAME";
+    private static CountingIdlingResource idlingResource;
 
     public static Repository provideRepository(Context context) {
         return Repository.getInstance(
@@ -81,5 +86,18 @@ public class InjectorUtils {
 
     public static SharedPreferences provideSharedPreferences(Context applicationContext) {
         return applicationContext.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    public static CountingIdlingResource provideIdlingResource() {
+        return idlingResource;
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public static CountingIdlingResource provideTestingIdlingResource() {
+        if (idlingResource == null) {
+            idlingResource = new CountingIdlingResource("idling_resource");
+        }
+        return idlingResource;
     }
 }

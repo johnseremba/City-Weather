@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.test.espresso.idling.CountingIdlingResource;
 
 import com.example.cityweather.BuildConfig;
 import com.example.cityweather.R;
@@ -74,12 +75,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @BindView(R.id.bottom_sheet)
     ConstraintLayout mBottomSheet;
 
+    private CountingIdlingResource idlingResource = InjectorUtils.provideIdlingResource();
+
     public MapFragment() {
         // Required empty public constructor
     }
 
     public static MapFragment getInstance() {
         return new MapFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // @ForTesting: Starting idling resource when loading map
+        if (idlingResource != null) {
+            idlingResource.increment();
+        }
     }
 
     @Override
@@ -107,6 +119,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mViewModel.setGoogleMap(googleMap);
+        if (idlingResource != null) {
+            idlingResource.decrement();
+        }
     }
 
     @Override

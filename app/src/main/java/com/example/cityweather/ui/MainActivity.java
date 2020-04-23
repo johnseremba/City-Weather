@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -97,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
         addFragment(CityListFragment.newInstance(searchQuery), CityListFragment.TAG, false);
     }
 
-    private void addFragment(Fragment fragment, String tag, boolean addToBackStack) {
+    @VisibleForTesting
+    public void addFragment(Fragment fragment, String tag, boolean addToBackStack) {
         if (addToBackStack) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment, tag)
