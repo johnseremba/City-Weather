@@ -95,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 CitiesSuggestionsProvider.AUTHORITY,
                 CitiesSuggestionsProvider.MODE);
         suggestions.saveRecentQuery(searchQuery, null);
-        addFragment(CityListFragment.newInstance(searchQuery), CityListFragment.TAG, false);
+        searchQuery = "%" + searchQuery + "%";
+        addFragment(CityListFragment.newInstance(searchQuery), CityListFragment.TAG, true);
     }
 
     @VisibleForTesting

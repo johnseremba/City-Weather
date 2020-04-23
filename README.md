@@ -11,15 +11,57 @@ Reviews of the user are stored on a local database cache, and the user can share
 * The User shall search for a city of choice using a search bar.
 * The Focus of the map shall be set to the user’s selected city.
 * The App shall show basic information (name of city and address) about a city selected
-by a user.
+  by a user.
 * A user shall press a bookmark button that shall take them to an interface where they can
-write reviews/expectations or just general thoughts about that city.
+  write reviews/expectations or just general thoughts about that city.
 * User Reviews shall be stored locally on the device.
 * A user shall be presented with a 5 days hourly weather forecast for that city.
 * A list view with cities bookmarked by the user shall be presented.
 * A user shall be able to search through the bookmarked cities to select a city of choice.
 * When a city is selected from the bookmarked cities list, the user shall be able to view a 5
-days Hourly weather forecast for that city.
+  days Hourly weather forecast for that city.
 * The App shall have a widget that displays weather information for a selected city
 
 ## Screenshots
+
+<img src="screenshots/01-home-screen.png" height="400px"/> <img src="screenshots/02-search-place.png" height="400px"/>
+<img src="screenshots/03-show-result.png" height="400px"/> <img src="screenshots/04-add-description.png" height="400px"/>
+
+<img src="screenshots/05-show-cities.png" height="400px"/> <img src="screenshots/05.1-search-cities.png" height="400px"/>
+<img src="screenshots/06-forecast.png" height="200px"/> 
+
+### App Widget
+
+<img src="screenshots/07-app-widget.png" height="400px"/>
+
+### Libraries Used
+
+1. Retrofit:
+   To handle fetching of data from the open weather api. This library is efficient at making network requests. It incorporates a GSON Converter that enables effective Serialization and Deserialization of JSON Requests and Responses.
+
+1. Room:
+   To handle data persistence. This is the recommended persistence library from Google.
+
+1. Picasso:
+   To handle loading and caching of weather icons.
+
+1. Google Maps:
+   To display a Map to the user, and drop a pin to the user’s selected city.
+
+1. Google Places:
+   To get more information about the selected city and also enable searching for Cities.
+
+1. Material Design:
+   To add material design to the project and hence follow Google’s recommended App Design Guidelines.
+
+1. WorkManager:
+   To handle routine asynchronous fetching of weather data even when the user is not actively interacting with the App.
+
+1. Stetho:
+   To enable professional debugging of the App during development.
+
+1. Butterknife:
+   To handle view binding and reduce boilerplate code.
+
+1. Android Architecture Components:
+    LiveData, ViewModel and WorkManager.
